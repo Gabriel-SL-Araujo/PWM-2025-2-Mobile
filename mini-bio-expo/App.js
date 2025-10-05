@@ -1,10 +1,10 @@
-// App.js
 import { StatusBar } from 'expo-status-bar';
 import { Image, Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  const name = "Gabriel Araújo"; // <-- seu nome
-  const bio = "Sou estudante de Ciência da Computação, focado em QA/automação com Python e desenvolvimento de habilidades no meu White Room. Curioso por Machine Learning, gosto de treinar, estudar inglês (Cambridge) e construir projetos que unem teoria e prática.";
+  const name = "Gabriel de Souza Leão Araújo";             
+  const phrase = "Cientista da Computação em desenvolvimento, apaixonado por aprender,criar e evoluir na área de tecnologia";
+  const useLocalImage = true;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -12,26 +12,36 @@ export default function App() {
         {name}
       </Text>
 
-      {/* Opção A: imagem local em assets/me.jpg */}
-       <Image
-        source={{ uri: "https://picsum.photos/600" }} // troque para a URL real da sua foto se quiser
-        style={styles.photo}
-        accessibilityLabel={`Foto de ${name}`}
-      />
+      {useLocalImage ? (
+        <Image
+          source={require('./assets/me.jpg')}
+          style={styles.photo}
+          accessibilityLabel={`Foto de ${name}`}
+        />
+      ) : (
 
-      {/* Opção B (alternativa): usar URL. 
-          Se usar URL, troque o bloco acima por:
-          <Image source={{ uri: "https://link-da-sua-foto" }} style={styles.photo} /> */}
+        <Image
+          source={{ uri: "https://picsum.photos/600" }}
+          style={styles.photo}
+          accessibilityLabel={`Foto de ${name}`}
+        />
+      )}
 
-      <Text style={styles.bio}>{bio}</Text>
+      <Text style={styles.phrase}>"{phrase}"</Text>
 
       <View style={styles.linksBox}>
         <Text style={styles.linksTitle}>Links</Text>
-        <Text style={styles.link} onPress={() => Linking.openURL("https://github.com/seu-usuario/mini-bio-expo")}>
+        <Text
+          style={styles.link}
+          onPress={() => Linking.openURL("https://github.com/seu-usuario/mini-bio-expo")}
+        >
           GitHub: github.com/seu-usuario/mini-bio-expo
         </Text>
-        <Text style={styles.link} onPress={() => Linking.openURL("https://expo.dev/accounts/seu-usuario/projects/mini-bio-expo")}>
-          Expo: expo.dev/accounts/seu-usuario/projects/mini-bio-expo
+        <Text
+          style={styles.link}
+          onPress={() => Linking.openURL("https://expo.dev/accounts/seu-usuario/projects/mini-bio-expo")}
+        >
+          Expo (OTA): expo.dev/accounts/seu-usuario/projects/mini-bio-expo
         </Text>
       </View>
 
@@ -64,11 +74,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#4ea8de',
   },
-  bio: {
-    fontSize: 16,
-    lineHeight: 24,
+  phrase: {
+    fontSize: 18,
+    lineHeight: 26,
     color: '#bcd1e6',
     textAlign: 'center',
+    fontStyle: 'italic',
   },
   linksBox: {
     marginTop: 24,
